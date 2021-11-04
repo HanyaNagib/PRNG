@@ -1,0 +1,26 @@
+#setting the n to a 0 so that it can be placed in the while loop
+n = 0
+#using the while loop to print a 100 random numbers
+while n <100:
+  #importing time and using the sleep function to wait a second so the seed changes  
+  import time
+  time.sleep(1)
+  #importing datetime class from the datetime module
+  from datetime import datetime
+  #used the now() method to get a datetime object containing current time
+  now = datetime.now()
+  x = now.strftime("%H%M%S")
+  #converting the time into an integer
+  seed = int(x)
+  print("seed =" , seed)
+  #defining the function to produce the random number with the formula
+  def prng(m = 2**32, a =214013, b=253011):
+      #using global to identify the variable seed outside the function scope
+      global seed
+      #using the linear congruential formula
+      seed = ((a*seed)+ b)%m
+      #using return to send the variable seed back into the main program
+      return seed
+  print(prng(seed))
+  #incrementing the n until it reaches a 100 to print a hundred random numbers
+  n += 1

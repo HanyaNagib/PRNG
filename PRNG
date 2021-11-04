@@ -1,0 +1,39 @@
+#allowing the user to choose whether to enter the seed themselves or read it from the .txt file
+c = str(input("please enter 1 to enter the seed youreself or enter 2 to read the seed from the .txt file"))
+if c == "1":
+    seed = int(input("please enter the seed"))
+elif c == "2":
+  #importing the os module to fetch the .txt file
+  import os
+  #the path where the seed file resides
+  fi = os.path.expanduser('~/Desktop/seed.txt')
+  # with this form of open, the file will automatically close when exiting the code block
+  with open(fi, 'r') as seed:
+      s = seed.read()
+  #converting its type into an integer
+  seed = int(s)
+else:
+    #the user has to enter 1 or 2
+    print("Error. Please try again")
+    #importing the sys module to get the exit() function
+    import sys
+    #using the exit() function to stop the rest of the code from running
+    sys.exit()
+print("seed =", seed)
+#setting the n to a 0 so that it can be placed in the while loop
+n = 0
+#defining the function to produce the random number with the formula
+def prng(m = 2**32, a =214013, b=253011):
+   #using global to identify the variable seed outside the function scope
+   global seed
+   #using global to identify the variable n outside the function scope
+   global n
+   #using the while loop to print a 100 random numbers
+   while n < 100:
+      #using the linear congruential formula
+      seed = ((a*seed)+ b)%m
+      #incrementing the n until it reaches a 100 to print a hundred random numbers
+      n += 1
+      print(seed)
+#calling the prng function
+prng(seed)
